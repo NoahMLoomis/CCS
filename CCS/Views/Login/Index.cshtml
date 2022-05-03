@@ -1,0 +1,33 @@
+﻿@model Login
+@{
+    ViewData["Title"] = "Login";
+}
+
+
+<main>
+    <h2 class="text-center" id="login-title">Login</h2>
+
+    <p id="welcome" class="text-center">To log in, enter your Heritage username and password.</p>
+
+    <div id="around-login-from">
+
+        <form action="" method="post">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <label asp-for="Username"></label>
+            <input type="text" class="form-control" asp-for="Username" placeholder="Username">
+            <span asp-validation-for="Username"></span>
+
+            <label asp-for="Password"></label>
+            <input type="password" class="form-control" asp-for="Password" placeholder="Password">
+            <span asp-validation-for="Password"></span>
+
+            <input type="submit" name="submit" class="btn btn-primary" value="Login" id="loginBtn" />
+
+        </form>
+
+    </div>
+
+</main>
+

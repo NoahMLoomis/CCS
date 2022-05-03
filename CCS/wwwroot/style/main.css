@@ -1,0 +1,1265 @@
+/* Cegep Heritage College Main CSS File
+
+	<-- Media Factory FTW -->
+
+	TABLE OF CONTENTS
+	----------------------------------->
+	1. ##Site General Needs
+		1.1. ##Links
+	2. ##Navbar
+		2.1. ##TopNav
+		2.2. ##MainNav
+		2.3. ##LeftColFooter
+		3.1. ##Breadcrumbs
+		3.2. ##Search
+	3. ##Side Nav
+	4. ##Content
+		4.1. ##Tables
+		4.2. ##Blockquotes
+		4.3. ##Misc. Styles
+	6. ##Footer
+	7. ##Media Queries
+	----------------------------------->
+*/
+
+
+/* ===================================================
+##Site General Needs
+====================================================== */
+
+.full-height {
+    align-items: stretch
+}
+
+/*Create Challenge customer CSS*/
+
+.return-type-select {
+    width: 100%;
+}
+
+.active-chk-box {
+    width: 20px;
+    height: 20px;
+}
+
+.active-label {
+    padding-right: 10px;
+}
+
+.delete-challenge {
+    margin: 1%;
+    background-color: lightgrey;
+    color: slategrey;
+}
+
+.edit-challenge-title {
+    margin-right: 5em;
+    display: inline;
+}
+
+.active-checkbox > input:checked {
+    background-color: #2196f3 !important;
+}
+
+.create-challenge-btn-div {
+    text-align: center;
+    margin-top: 1.5%;
+}
+
+.tc-sec-title {
+    display: inline;
+}
+
+.tc-addBtn {
+    float: right;
+}
+
+.language-Image {
+    width: 3em;
+    height: 3em;
+}
+
+.tc-expected-field {
+    min-width: 150px;
+    margin-left: 1%;
+}
+
+.tc-row {
+    padding: 1%;
+}
+
+.tc-param {
+    margin-right: 1%;
+}
+
+.tc-params-row {
+    display: inherit;
+}
+
+.scroll-divs {
+    height: 250px;
+}
+
+.tc-div-scroll {
+    height: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: center;
+}
+
+.param-div-scroll {
+    height: 150px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: center;
+}
+
+#parameterList {
+    padding: 0 4% 0 4%;
+}
+
+.desc-textarea {
+    height: 175px !important;
+    resize: none;
+}
+
+.ex-textarea {
+    height: 100px !important;
+    resize: none;
+}
+
+.form-group-right {
+    padding-left: 10%;
+}
+
+.left-half,
+.right-half {
+    padding: 2%;
+    height: 700px;
+}
+
+.create-challenge-label {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.console {
+    background-color: black;
+    margin: auto;
+    height: 30% !important;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: start;
+}
+
+body {
+    background-image: url("../images/topbar-bg.gif"), url("../images/bg.gif");
+    background-position: left top, left top;
+    background-repeat: repeat-x, repeat;
+    font-family: Verdana, sans-serif;
+    font-size: 14px;
+}
+
+p {
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+h1,
+h2,
+h3,
+p {
+    color: #bf8100;
+}
+
+    h3.dark {
+        color: #bf8100;
+    }
+
+h3 {
+    line-height: 1.2;
+    margin-top: 30px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.red {
+    color: #ff0000;
+}
+
+hr {
+    border-top: 1px solid #d6d4d0;
+}
+
+    hr.style-six {
+        border: 0;
+        height: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+br.responsive-break {
+    display: initial;
+}
+
+br.responsive-break-2 {
+    display: initial;
+}
+
+.note-text {
+    position: relative;
+    top: -8px;
+    margin-bottom: 5px;
+    font-size: 11px;
+}
+
+.note-star {
+    font-size: 11px;
+}
+
+
+/* Fix the Ponderation table issue when in responsive mode. */
+
+span.conted-tbl-break {
+    display: initial;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.btn-warning-df {
+    color: #fff;
+    background-color: #e89e01;
+    border: 0;
+    padding: 8px 16px;
+}
+
+.glyphicon {
+    position: relative;
+    top: 2px;
+}
+
+.content {
+    background-color: #fff;
+}
+
+.white-bg .content {
+    background-color: #fff;
+}
+
+.container-fluid-df {
+    max-width: 1400px;
+}
+
+.container-fluid-df {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* Removing padding from col-sm-3 (nav)  */
+
+.col-sm-3-df {
+    padding: 0;
+}
+
+.col-sm-9-content {
+    padding: 0 15px 8px 15px;
+    background-color: #fff;
+    /* Fix to keep bg white when low content */
+    min-height: 557px;
+}
+
+
+/* ===================== ##Links ===================== */
+
+a:link,
+a:visited,
+a:active {
+    color: #bf8100;
+    -webkit-transition: 0.2s color linear;
+    -moz-transition: 0.2s color linear;
+    transition: 0.2s color linear;
+}
+
+a:hover {
+    color: #463f2d;
+    -webkit-transition: 0.2s color linear;
+    -moz-transition: 0.2s color linear;
+    transition: 0.2s color linear;
+}
+
+a.dark:link,
+a.dark:visited,
+a.dark:active {
+    color: #463f2d;
+    -webkit-transition: 0.2s color linear;
+    -moz-transition: 0.2s color linear;
+    transition: 0.2s color linear;
+}
+
+a.dark:hover {
+    color: #bf8100;
+    -webkit-transition: 0.2s color linear;
+    -moz-transition: 0.2s color linear;
+    transition: 0.2s color linear;
+}
+
+.sidenav a:link,
+.sidenav a:visited,
+.sidenav a:hover {
+    color: #333;
+    text-decoration: underline;
+}
+
+.sidenav a:active {
+    color: #bf8100;
+}
+
+a.footer:link,
+a.footer:visited,
+a.footer:hover,
+a.footer:active {
+    color: #463f2d;
+    text-decoration: underline;
+}
+
+.img-link-shadow:hover {
+    transition: 0.2s;
+    -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.img-link:hover {
+    opacity: 0.5;
+}
+
+
+/* ===================================================
+##Navbar
+====================================================== */
+
+
+/* Remove the navbar's default margin-bottom and rounded borders */
+
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+.row-banner.content-banner {
+    height: 125px;
+}
+
+.banner-left {
+    background-image: url("../images/banner-left-bg.jpg");
+    background-repeat: repeat-x;
+    padding-top: 25px;
+    padding: 25px 0 0 0 15px;
+    height: 125px;
+    width: 205px;
+}
+
+.banner-right {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#user-info {
+    margin-top: 0.3em;
+}
+
+
+/* ===================== ##LeftColFooter ===================== */
+
+#col-left-footer {
+    display: none;
+}
+
+#col-left-footer-bottom {
+    display: inline-block;
+}
+
+
+/* ===================== ##TopNav ===================== */
+
+
+/* Wrap to center the top-nav using margins */
+
+.top-wrap {
+    background-color: #fff;
+}
+
+#top-menu {
+    float: left;
+    margin: 4px 0 5px 0;
+}
+
+ul#top-menu li {
+    display: inline;
+    font-family: verdana;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+li.top-menu {
+    background-image: url("../images/square.gif");
+    background-repeat: no-repeat;
+    background-position: 0px 4px;
+    padding: 0 12px 0 12px;
+}
+
+li.top-menu-last {
+    padding-right: 0;
+}
+
+
+/* <!------------------------ ##MainNav ------------------------ // --> */
+
+#main-navbar {
+    display: none;
+}
+
+.navbar-brand {
+    font-family: Verdana;
+    font-size: 16px;
+}
+
+.navbar {
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+}
+
+
+/* ===================== ##Breadcrumbs ===================== */
+
+ul#breadcrumb {
+    padding: 0;
+    margin-top: 28px;
+    margin-bottom: 0px;
+}
+
+    ul#breadcrumb li {
+        display: inline;
+        font-weight: bold;
+        font-family: verdana;
+        font-size: 12px;
+    }
+
+li.arrow {
+    background-image: url("../images/breadcrumb-arrow.gif");
+    background-repeat: no-repeat;
+    background-position: 0px 3px;
+    padding-left: 12px;
+    padding-right: 5px;
+}
+
+li.arrow-text {
+    background-image: url("../images/text-arrow.gif");
+    background-repeat: no-repeat;
+    background-position: 0px 4px;
+    padding-left: 12px;
+    padding-right: 5px;
+}
+
+li#home {
+    background-image: url("../images/breadcrumb-home.gif");
+    background-repeat: no-repeat;
+    background-position: 0px 2px;
+    padding-left: 20px;
+    padding-right: 5px;
+}
+
+
+/* ===================== ##Search ===================== */
+
+.input-group-search {
+    margin: 25px 0 0 7px;
+}
+
+.form-control-search {
+    box-shadow: none;
+    border: 1px solid #d6d4d0;
+}
+
+.btn-default-search {
+    background-color: #f6f6f6;
+}
+
+.glyphicon-search {
+    opacity: 0.3;
+    top: 3px;
+    font-size: 16px;
+}
+
+
+/* ===================================================
+##Content
+====================================================== */
+
+.sidenav h1,
+.sidenav h2,
+.sidenav h3 {
+    color: #463f2d;
+}
+
+.box_header {
+    padding: 20px;
+    border: 1px solid #b4afa3;
+    margin-top: 20px;
+    margin-bottom: 35px;
+}
+
+    .box_header header {
+        background-color: #e3dfd5;
+        color: #463f2d;
+        margin: -20px -20px 0 -20px;
+    }
+
+        .box_header header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #463f2d;
+            padding: 12px 20px 10px 20px;
+        }
+
+        .box_header header h5 {
+            font-weight: 600;
+            color: #463f2d;
+            padding: 0 20px 20px 20px;
+            margin-top: -10px;
+        }
+
+    .box_header ul {
+        margin-bottom: -10px;
+    }
+
+
+/* ===================== Login ===================== */
+
+#login-title {
+    margin-top: 0.5em;
+}
+
+.field-validation-error {
+    color: red;
+    font-style: italic;
+}
+
+#around-login-from form {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1.2em;
+    margin-top: 2em;
+}
+
+
+/* ===================== ##Tables ===================== */
+
+#table-programs table {
+    border: 1px solid #a1a1a1;
+}
+
+#table-programs thead > tr > th {
+    border-bottom: none;
+}
+
+#table-programs thead {
+    border: 1px solid #a1a1a1;
+}
+
+    #table-programs thead > tr > th,
+    #table-programs tbody > tr > th,
+    #table-programs tfoot > tr > th,
+    #table-programs thead > tr > td,
+    #table-programs tbody > tr > td,
+    #table-programs tfoot > tr > td {
+        border: 1px solid #a1a1a1;
+    }
+
+#table-programs th {
+    text-align: center;
+    background-color: #e3dfd5;
+}
+
+
+/* ===================== ##Blockquotes ===================== */
+
+blockquote {
+    font-family: Georgia, serif;
+    font-size: 18px;
+    font-style: italic;
+    width: 100%;
+    line-height: 1.7;
+    position: relative;
+    color: #383838;
+    padding-left: 65px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-left: 0;
+}
+
+    blockquote:before {
+        display: block;
+        content: "\201C";
+        font-size: 80px;
+        position: absolute;
+        left: 10px;
+        top: -20px;
+        color: #c2c2c2;
+    }
+
+    blockquote cite {
+        color: #999999;
+        font-size: 14px;
+        display: block;
+        margin-top: 5px;
+    }
+
+        blockquote cite:before {
+            content: "\2014 \2009";
+        }
+
+    blockquote footer {
+        background-color: transparent;
+        text-align: right;
+        color: #b4b4b4;
+        font-size: 14px;
+        padding-bottom: 5px;
+    }
+
+
+/* ========================== ##Misc. Styles ================ */
+
+.crspan {
+    padding: 0 30px;
+}
+
+
+/* ========================== Student Home Page ================ */
+
+.student-home-page-content {
+    display: grid;
+    grid-template-columns: auto;
+    grid-gap: 3em;
+    margin-top: 3em;
+}
+
+#start-challenge-form select {
+    margin-bottom: 2em;
+    margin-top: 1em;
+    width: max-content;
+    margin: auto;
+}
+
+.challenge-description {
+    padding: 3em;
+}
+
+    .challenge-description #example {
+        padding: 1.5em;
+    }
+
+        .challenge-description #example #indent {
+            padding-left: 2em;
+        }
+
+#start-challenge-form,
+#table-container {
+    padding: 1.2em;
+}
+
+
+#student-home-page {
+    margin-top: 2em;
+}
+
+    #student-home-page h4 {
+        color: #bf8100;
+        font-size: 24px;
+    }
+
+#recentChallengesTable tbody tr.easy{
+    border-left: 5px solid green;
+}
+
+#recentChallengesTable tbody tr.medium{
+    border-left: 5px solid yellow;
+}
+
+#recentChallengesTable tbody tr.hard{
+    border-left: 5px solid red;
+}
+
+#nav-all-challenges, #nav-recent-challenges {
+    margin-top: 1.2em;
+}
+
+.buttons {
+    color: white !important;
+}
+
+
+/* ========================== Open challenges for students ================ */
+
+#all-challenges div {
+    height: 5em;
+}
+
+#go-back-button {
+    margin: 1em 0 2em 6.5em;
+}
+
+#all-challenges #all-challenges-headings {
+    font-size: 1.4em;
+    font-weight: bolder !important;
+    margin-bottom: -1.2em !important;
+}
+
+    #all-challenges #all-challenges-headings a {
+        color: black !important;
+    }
+
+
+/* ================== Challenge Page ================*/
+
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+    .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 17px;
+    }
+
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+.tabcontent {
+    display: none;
+    padding: 2%;
+    /*border: 1px solid #ccc;*/
+    border-top: none;
+    height: 625px;
+}
+
+.flex-container {
+    margin-top: 2%;
+    height: 800px;
+    display: flex;
+}
+
+.orange-border {
+    border: 1px solid #bf8100;
+}
+
+.flex-child {
+    flex: 1;
+}
+
+    .flex-child:first-child {
+        margin-right: 20px;
+    }
+
+flex-height {
+    height: 49%;
+    border: none !important;
+    margin: 0 0.5rem !important;
+}
+
+.tableFixHead thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+#testCasesTable th, #testCasesTable td {
+    padding: 0.3rem !important;
+}
+
+.tableFixHead:first-child {
+    margin-right: 0 !important;
+    margin-bottom: 13px;
+}
+
+.flex-height {
+    height: 49%;
+    border: none !important;
+    margin: 0 0.5rem !important;
+}
+
+.tableFixHead table {
+    border-collapse: collapse;
+}
+
+.tableFixHead:first-child {
+    margin-right: 0 !important;
+    margin-bottom: 13px;
+}
+
+.tableFixHead thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+#testCasesTable th, #testCasesTable td {
+    padding: 0.3rem !important;
+    border: 1px solid #ccc;
+}
+
+#code-area {
+    width: 100%;
+    height: 85%;
+    padding: 2%;
+    display: none !important;
+}
+
+.challenge-split {
+    height: 85%;
+}
+
+.challenge-split-right {
+    padding: 1%;
+}
+
+#challenge-title {
+    display: inline;
+}
+
+#solution-title {
+    margin-top: 0;
+}
+
+.solution-button-area {
+    text-align: right;
+    margin: 1%;
+}
+
+.challenge-content,
+.challenge-content p {
+    font-size: 1rem !important;
+}
+
+.challenge-page-description {
+    color: black;
+}
+
+.modal-body {
+    text-align: center;
+}
+
+#yesOption {
+    display: inline;
+}
+
+#deleteMsgContainer, #updateMsgContainer{
+    width: 90%;
+    margin: auto;
+}
+
+#deleteInfoParagraph {
+    word-break: break-word;
+    white-space: normal;
+}
+
+.deleteInBlack {
+    color: black;
+}
+
+#addParameterBtn {
+    margin-top: -0.5em;
+}
+
+#parameterHeader {
+    margin-left: -2.9em;
+}
+
+#parameter_template {
+    margin-left: -2em;
+}
+
+/*Access Denied Image*/
+
+#accessDenied {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    margin-top: -7em;
+}
+
+
+/* ===================================================
+##Footer
+====================================================== */
+
+
+/* Set black background color, white text and some padding */
+
+footer {
+    background-color: #e89d00;
+    color: white;
+    padding: 15px;
+}
+
+.text-footer {
+    margin-bottom: 0;
+    color: #463f2d;
+}
+
+.break {
+    display: none;
+}
+
+
+/* For show Challenge is open or close button */
+
+.custom-switch.custom-switch-md .custom-control-label {
+    padding-bottom: 1.5rem;
+}
+
+    .custom-switch.custom-switch-md .custom-control-label::before {
+        height: 1.5rem;
+        width: calc(2rem + 0.75rem);
+        border-radius: 3rem;
+    }
+
+    .custom-switch.custom-switch-md .custom-control-label::after {
+        width: calc(1.5rem - 4px);
+        height: calc(1.5rem - 4px);
+        border-radius: calc(2rem - (1.5rem / 2));
+    }
+
+.custom-switch.custom-switch-md .custom-control-input:checked ~ .custom-control-label::after {
+    transform: translateX(calc(1.5rem - 0.25rem));
+}
+
+
+/*Teacher Home Page*/
+
+#challengeTitleLbl {
+    font-size: 1.3em;
+}
+
+
+/*For show Challenge is difficulty level*/
+
+.teachercontainer {
+    width: 90%;
+    margin: auto;
+}
+
+#teacher-heading {
+    font-size: 1.4em;
+    font-weight: bolder !important;
+    height: 4em;
+}
+
+    #teacher-heading a {
+        color: black;
+    }
+
+.Hard {
+    border: solid 1px black;
+    border-left: solid 5px red;
+}
+
+.Medium {
+    border: solid 1px black;
+    border-left: solid 5px yellow;
+}
+
+.Easy {
+    border: solid 1px black;
+    border-left: solid 5px green;
+}
+
+#heritage-logo-bar img {
+    /*max-width: 100%;*/
+    display: inline-block;
+    /* change the default display type to inline-block */
+    overflow: hidden;
+    /* hide the overflow */
+}
+
+
+/* ===================================================
+##Media Queries
+====================================================== */
+
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+
+@media screen and (max-width: 767px) {
+    .sidenav {
+        height: auto;
+    }
+
+    .row.content {
+        height: auto;
+    }
+
+    #top-banner-logo-area {
+        display: none !important;
+    }
+
+    #teacher-heading,
+    #all-challenges #all-challenges-headings {
+        font-size: 1.0em;
+        text-align: center;
+    }
+
+    .branding {
+        /*visibility: hidden;*/
+        font-size: 2em;
+    }
+}
+
+@media screen and (max-width: 577px) {
+    #teacher-heading,
+    #all-challenges #all-challenges-headings {
+        font-size: 0.9em;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #teacher-heading,
+    #all-challenges #all-challenges-headings {
+        font-size: 0.8em;
+    }
+}
+
+
+/* <!-- Breaking points [+]  // --> */
+
+
+/* Custom, iPhone Retina */
+
+@media only screen and (min-width: 320px) {
+}
+
+@media only screen and (max-width: 478px) {
+    #recentChallengesTable {
+        font-size: x-small;
+    }
+}
+
+/* Extra Small Devices, Phones */
+
+@media only screen and (min-width: 480px) {
+    span.conted-tbl-break {
+        display: none;
+    }
+
+    #recentChallengesTable {
+        font-size: x-small;
+    }
+}
+
+@media only screen and (min-width: 580px) {
+    .banner-right {
+        background-image: url("../images/banner-right-school.jpg");
+        background-repeat: repeat-x;
+        padding: 0;
+        text-align: left;
+        display: flex;
+    }
+}
+
+@media only screen and (min-width: 610px) {
+    #recentChallengesTable {
+        font-size: small;
+    }
+}
+
+
+/* Small Devices, Tablets */
+
+@media only screen and (min-width: 768px) {
+    .col-sm-12-topbar {
+        background-color: #fff;
+    }
+
+    li.top-menu-last {
+        padding-right: 0px;
+    }
+    /*    .banner-right {
+        background-image: url("../images/banner-right-school.jpg");
+        background-repeat: repeat-x;
+        padding: 0;
+        text-align: left;
+        display: initial;
+    }*/
+    .banner-image {
+        float: right;
+        display: initial;
+    }
+
+    .content {
+        background-color: #b8b19e;
+    }
+
+    #col-left-footer {
+        padding: 12px;
+        display: inline-block;
+    }
+
+    #col-left-footer-bottom {
+        display: none;
+    }
+
+    ul#breadcrumb {
+        margin-top: 10px;
+    }
+
+    .col-sm-9-content {
+        padding: 0 30px 8px 30px;
+    }
+
+    #main-navbar {
+        display: initial;
+    }
+
+    .navbar {
+        display: none;
+    }
+
+    .col-sm-3-df {
+        background-color: #b8b19e;
+    }
+
+    #left-col-footer {
+        background-image: url("../images/left-col-footer.jpg");
+        background-color: #fff;
+        background-repeat: no-repeat;
+        background-position: bottom right;
+        height: 125px;
+    }
+
+    .break {
+        display: initial;
+    }
+    #recentChallengesTable {
+        font-size: medium;
+    }
+    /* ===================== Login ===================== */
+    #around-login-from {
+        margin: 5em 0 0 13em;
+    }
+
+        #around-login-from form {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+            #around-login-from form label {
+                justify-self: right;
+                padding-top: 0.6em;
+                font-size: 1.1em;
+            }
+
+    #loginBtn {
+        grid-column: 2;
+        width: max-content;
+    }
+
+    #around-login-from form .validation-summary-errors {
+        grid-column: span 3;
+        text-align: center;
+    }
+
+        #around-login-from form .validation-summary-errors ul {
+            list-style-type: none;
+        }
+}
+
+
+/* Medium Devices, Desktops */
+
+@media only screen and (min-width: 992px) {
+    br.responsive-break-2 {
+        display: none;
+    }
+}
+
+
+@media only screen and (min-width: 690px) {
+    #recentChallengesTable{
+        font-size: medium;
+    }
+}
+
+
+/* Large Devices, Wide Screens */
+
+@media only screen and (min-width: 1200px) {
+    #topbar {
+        text-align: right;
+    }
+    /* ========================== Student Home Page ================ */
+    .student-home-page-content {
+        grid-template-columns: 1fr 2fr;
+        padding: 2em;
+        grid-gap: 3em;
+    }
+
+    .challenge-description {
+        grid-column: span 2;
+    }
+}
+
+
+/* Custom added by DF */
+
+@media (min-width: 1430px) {
+    br.responsive-break {
+        display: none;
+    }
+}
+
+
+/* Custom added by DF */
+
+@media (min-width: 1740px) {
+    /* Edit - Margins at auto for centering on larger screens exceeding max-width - OT 
+	.container-fluid-df {
+		margin: 0 245px 0 245px;
+	}*/
+    .container-fluid-df {
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 576px) {
+    .banner-left {
+        /*        background-image: url("../images/banner-left-bg.jpg"),url("../images/banner-right-1.png");
+        background-repeat: repeat-x,no-repeat;
+        background-position: left bottom, right top;
+        padding-top: 25px;
+        padding: 25px 0 0 0 15px;
+        height: 125px;*/
+        width: 100%;
+    }
+}

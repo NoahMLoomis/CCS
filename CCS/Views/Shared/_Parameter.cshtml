@@ -1,0 +1,29 @@
+﻿@model CCS.Models.ChallengeDTO
+
+<li class="row ui-state-default border border-light bg-light pt-2 mb-2 ui-sortable-handle paramter_listItem" id="parameter0">
+    <div class="col-3 mb-2">
+        <div class="row">
+            <div class="col-auto">
+                <select class="custom-select parameter_dataTypeId" name="Parameters[0].DataTypeId" required>
+                    <option disabled selected>Select Data Type</option>
+                    @foreach (var dataType in (IEnumerable<DataType>)ViewBag.DataTypes) {
+                        <option value="@dataType.DataTypeId">@dataType.DataTypeName</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-3 form-group mb-2">
+        <input type="text" class="form-control parameter_name" name="Parameters[0].ParameterName" placeholder="enter parameter name">
+    </div>
+    <div class="col-3 form-group mb-2">
+        <input type="text" class="form-control parameter_defaultValue" name="Parameters[0].DefaultValue" placeholder="enter default value">
+    </div>
+    <input type="hidden" value="0" name="Parameters[0].Position" class="parameter_positon"/>
+    <div class="col-3 text-center mb-2">
+        <div class="row">
+            <div class="col-3 move"><button type="button" class="btn" onclick="removeParamItem()">x</button></div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+</li>

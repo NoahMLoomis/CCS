@@ -1,0 +1,316 @@
+﻿@model CCS.Models.ChallengeDTO
+@*@{
+            ViewData["Title"] = "Edit Challenge Page";
+    }*@
+
+<link rel="stylesheet" type="text/css" href="~/lib/codemirror/codemirror.css" />
+<link rel="stylesheet" type="text/css" href="~/lib/codemirror/theme/darcula.css" />
+
+<h1 class="edit-challenge-title">Edit Challenge</h1>
+<hr />
+<nav class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="nav-details" aria-selected="false">Details</a>
+    <a class="nav-item nav-link" id="function-data-tab" data-toggle="tab" href="#function-data" role="tab" aria-controls="nav-profile" aria-selected="true">Function Data</a>
+    <a class="nav-item nav-link" id="testing-suite-tab" data-toggle="tab" href="#testing-suite" role="tab" aria-controls="nav-profile" aria-selected="true">Testing suite</a>
+</nav>
+<p class="text-danger">@TempData["languageChangedMess"]</p>
+<form asp-action="Edit" class="challenge-form">
+    <div class="tab-content" id="nav-tabContent">
+
+        <input type="hidden" asp-for="ChallengeId" />
+        <input type="hidden" asp-for="TeacherId" />
+        <input type="hidden" asp-for="Teacher" />
+        <input type="hidden" asp-for="CreationDate" />
+
+        @*First tab of edit challenge form*@
+        <div class="details tab-pane fade show active" id="details" role="tabpanel" aria-labelledby="details-tab">
+            <div class="form-check form-check-inline">
+                <label class="form-check-label create-challenge-label active-label" asp-for="Active"></label>
+                <input class="form-check-input active-chk-box active-checkbox" type="checkbox" asp-for="Active">
+            </div>
+            <br />
+            <br />
+            <div class="form-row">
+                <div class="form-group col-6">
+                    <label asp-for="Title" class="control-label create-challenge-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group form-group-right">
+                    <label asp-for="ChallengeLanguage" class="control-label create-challenge-label">Language</label>
+                    <div class="form-group">
+                        <select class="custom-select" asp-for="@Model.Language" value=@Model.Language disabled required>
+                            @foreach (var language in (IEnumerable<Language>)ViewBag.Languages) {
+                                var hasLanguage = Model.GetChallengeLanguageNameList().Contains(language.LanguageName.ToLower());
+                                if (hasLanguage) {
+                                    <option selected="selected" disabled="disabled" value="@language.LanguageId">@language.LanguageName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DifficultyLevel" class="control-label create-challenge-label mr-2">Difficulty</label><br />
+                        <select class="custom-select" asp-for="DifficultyLevel" asp-items="ViewBag.AllDifficulties" required>
+                            <option disabled selected>Select Difficulty Level</option>
+                        </select>
+                        <span asp-validation-for="DifficultyLevel"></span>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div>
+                <div>
+                    <label asp-for="Description" class="control-label create-challenge-label"></label>
+                    <textarea asp-for="Description" class="form-control desc-textarea" maxlength="200" placeholder="Create a function that adds two numbers together"></textarea>
+                </div>
+            </div>
+            <br />
+            <div>
+                <div>
+                    <label asp-for="Example" class="control-label create-challenge-label"></label>
+                    <textarea asp-for="Example" class="form-control ex-textarea" maxlength="200" placeholder="Create a function that adds two numbers together"></textarea>
+                </div>
+            </div>
+        </div>
+
+        @*Second tab of edit challenge form*@
+        <div class="function-data tab-pane fade" id="function-data" role="tabpanel" aria-labelledby="function-data-tab">
+            <div class="form-row">
+                <div class="form-group col-6">
+                    <label asp-for="FunctionName" class="control-label create-challenge-label">Function Name: </label>
+                    <input asp-for="FunctionName" class="form-control" maxlength="20" placeholder="Example: calculateSum" />
+                    <span asp-validation-for="FunctionName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group form-group-right col-6">
+                    <label class="control-label create-challenge-label mr-2">Return Type</label>
+                    <select class="custom-select" asp-for="ReturnTypeId">
+                        <option disabled>Select Return Type</option>
+                        @foreach (var dataType in (IEnumerable<DataType>)ViewBag.AllDataTypes) {
+                            if (Model.ReturnTypeId == dataType.DataTypeId) {
+                                <option selected="selected" value="@dataType.DataTypeId">@dataType.DataTypeName</option>
+                            } else {
+                                <option value="@dataType.DataTypeId">@dataType.DataTypeName</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+
+
+            @* TODO: Data type functionality: -> Challenge.ChallengeLanuage.Language.DataType*@
+            @*--------------------Parameters--------------------*@
+            <div class="p-2 mt-2 border rounded scroll-divs">
+                <p class="bold create-challenge-label">Parameters</p>
+                <div class="row font-weight-bold" id="parameterHeader">
+                    <div class="col-3">
+                        <div class="row">
+                            <div class="col-1"></div>
+                            <div class="col-auto">Data Type</div>
+                        </div>
+                    </div>
+                    <div class="col-3">Name</div>
+                    <div class="col-3">Default Value</div>
+                    <div class="col-3 mb-2">
+                        <div class="row">
+                            <div class="col-3">
+                                <button type="button" class="btn" onclick="addParameter();">+</button>
+                            </div>
+                            <div class="col-1"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="param-div-scroll">
+                    <ul id="parameter_template" class="ui-sortable">
+                        @if (ViewBag.Parameters.Count != 0) {
+                            @foreach (var parameter in Model.Parameters) {
+
+                                var parameterIndex = Model.Parameters.IndexOf(parameter);
+
+                                <li class="row ui-state-default border border-light bg-light pt-2 mb-2 ui-sortable-handle" id=@String.Concat("parameter", parameterIndex)>
+
+                                    <input type="hidden" asp-for="Parameters[parameterIndex].ParameterId" />
+
+                                    <input type="hidden" asp-for="Parameters[parameterIndex].ChallengeLanguageId" />
+
+                                    <div class="col-3 mb-2">
+                                        <div class="row">
+                                            <div class="col-auto">
+                                                <select class="custom-select" asp-for="Parameters[parameterIndex].DataTypeId" required>
+                                                    <option disabled>Select Data Type</option>
+                                                    @foreach (var dataType in (IEnumerable<DataType>)ViewBag.DataTypes) {
+                                                        @if (dataType.DataTypeId == parameter.DataTypeId) {
+                                                            <option value="@dataType.DataTypeId" selected>@dataType.DataTypeName</option>
+                                                        } else {
+                                                            <option value="@dataType.DataTypeId">@dataType.DataTypeName</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-3 form-group mb-2">
+                                        <input type="text" class="form-control" asp-for="Parameters[parameterIndex].ParameterName">
+                                    </div>
+
+                                    <div class="col-3 form-group mb-2">
+                                        <input type="text" class="form-control" asp-for="Parameters[parameterIndex].DefaultValue">
+                                    </div>
+
+                                    <input type="hidden" value="@parameter.Position" asp-for="Parameters[parameterIndex].Position" />
+
+                                    <div class="col-3 text-center mb-2">
+                                        <div class="row">
+                                            <div class="col-3 move"><button type="button" class="btn" onclick="removeParamItem()">x</button></div>
+                                            <div class="col-1"></div>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            }
+                        } else {
+                            @await Html.PartialAsync("_Parameter")
+                        }
+
+                    </ul>
+                    <div id="hiddenParameter" hidden>
+                        @await Html.PartialAsync("_Parameter")
+                    </div>
+                </div>
+            </div>
+
+
+
+            @*--------------------TestCases--------------------*@
+            <div class="p-2 mt-2 border rounded scroll-divs">
+                <p class="bold create-challenge-label tc-sec-title">Test Cases</p>
+                <button type="button" class="btn tc-addBtn" onclick="addTestCase();">+</button>
+                <div class="tc-div-scroll">
+                    <ul id="testCaseList" class="ui-sortable">
+                        @if (ViewBag.TestCases.Count != 0) {
+                            @foreach (var tc in Model.TestCases) {
+
+                                var testCaseIndex = Model.TestCases.IndexOf(tc);
+
+                                var testCaseIndexTwo = Model.TestCases.IndexOf(tc)+1;
+
+                                <li class="row ui-state-default border border-light bg-light pt-2 mb-2 ui-sortable-handle tc-row" id=@String.Concat("testCase", testCaseIndex+1)>
+
+                                    <input type="hidden" asp-for="TestCases[testCaseIndex].TestCaseId" />
+                                    <input type="hidden" asp-for="TestCases[testCaseIndex].ChallengeLanguageId" />
+
+                                    <label class="col-form-label bold tc-num">Test Case <span id="testCaseId">@(testCaseIndexTwo)</span></label>
+
+                                    <input type="text" placeholder="Expected" class="form-control col-2 tc-expected-field" asp-for="TestCases[testCaseIndex].ExpectedResult">
+
+                                    <div class="tc-params-row">
+                                        @{ var tcpIndex = 0;}
+                                        @foreach (var tcp in tc.TestCaseParameter) {
+
+                                            var testCaseParamter = (tc.TestCaseParameter.ToList()).IndexOf(tcp);
+
+                                            <input type="hidden" value="@tcp.TestCaseId" name="TestCases[@testCaseIndex].TestCaseParameter[@testCaseParamter].TestCaseId" />
+                                            <input type="hidden" value="@tcp.ParameterId" name="TestCases[@testCaseIndex].TestCaseParameter[@testCaseParamter].ParameterId" />
+                                            <input type="hidden" value="@tcp.TestCaseParameterId" name="TestCases[@testCaseIndex].TestCaseParameter[@testCaseParamter].TestCaseParameterId" />
+
+                                            <input type="text" placeholder="string" class="form-control col-2 tc-param" value="@tcp.Value" name="TestCases[@testCaseIndex].TestCaseParameter[@testCaseParamter].Value">
+
+                                            tcpIndex++;
+                                        }
+                                    </div>
+
+                                    <button type="button" class="btn" onclick="removeTestCase()">x</button>
+                                </li>
+                            }
+                        } else {
+                            @await Html.PartialAsync("_TestCase", 1)
+                        }
+                    </ul>
+                    <div id="hiddenTestCase" hidden>
+                        @await Html.PartialAsync("_TestCase", 1)
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="create-challenge-btn-div">
+                <input class="btn btn-success" type="submit" value="Update">
+                <button id='open' type="button" data-toggle="modal" data-target="#showmodal" class="btn delete-challenge">Delete</button>
+            </div>
+
+        </div>
+        <div class="tab-pane fade" id="testing-suite" role="tabpanel" aria-labelledby="testing-suite-tab">
+            <div class="challenge-content">
+                <div class="flex-container">
+                    <div class="challenge-split flex-child orange-border challenge-split-left">
+                        <div class="tabcontent" style="display: block">
+                            <h3>Output</h3>
+                            <div class="console mb-5">
+                                <p id="output">
+                                    <em>Test the challenge to get an output</em>
+                                </p>
+                            </div>
+                            <div class="text-break">
+                                <div class="flex-child challenge-split-left flex-height tableFixHead">
+                                    <h3>Test Cases Testing Results</h3>
+                                        <div class="tc-div-scroll">
+                                            <table class="table table-bordered table-hover text-center" id="testCasesTable">
+                                                <thead class="thead-dark">
+                                                    <tr class="tableHeader">
+                                                        <th>Number</th>
+                                                        <th>Parameters</th>
+                                                        <th>Expected Result</th>
+                                                        <th>Test Result</th>
+                                                        <th>Passed</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="resultsTableBody">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="solution-button-area">
+                            <input type="button" class="solution-btns btn btn-primary buttons" id="solution-test" value="Run Test Cases">
+                        </div>
+                    </div>
+
+                    @* CodeMirror *@
+                    <div class="challenge-split flex-child orange-border challenge-split-right">
+                        <h3>Test your function</h3>
+                        <textarea id="code-area" class="codemirror-textarea" placeholder="Enter code here">print("Hello World")</textarea>
+                        <div class="solution-button-area">
+                            <input type="button" class="solution-btns btn btn-primary buttons" id="solution-reset" value="Reset">
+                            <input type="button" class="solution-btns btn btn-primary buttons" id="solution-attempt" value="Attempt">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="showmodal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <partial name="_DeletePopUp" model="await @Model.GetChallengeOnly()">
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="~/lib/codemirror/codemirror.js"></script>
+<script src="~/lib/codemirror/mode/python/python.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+<script src="~/js/ChallengeParametersAndTestCases.js"></script>
+<script type="module" src="~/js/TestChallenge.js"></script>
+<script src="~/js/ChallengeParametersAndTestCases.js"></script>
+
+@section Scripts {
+    <script src="~/js/testCases.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.5/datatables.min.js"></script>
+}

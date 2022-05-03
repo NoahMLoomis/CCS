@@ -1,0 +1,57 @@
+﻿@model CCS.Models.Challenge
+@inject ICurrentSession currentSession
+
+@{
+    ViewData["Title"] = "Challenge Page";
+}
+
+<link rel="stylesheet" type="text/css" href="~/lib/codemirror/codemirror.css" />
+<link rel="stylesheet" type="text/css" href="~/lib/codemirror/theme/darcula.css" />
+
+<div class="challenge-content">
+    <div class="flex-container">
+        <div class="challenge-split flex-child orange-border challenge-split-left">
+            <div class="tab">
+                <button class="tablinks" id="defaultOpen">Info</button>
+                <button class="tablinks" id="outputTab">Output</button>
+            </div>
+
+            <div id="Info" class="tabcontent">
+                <h2 id="challenge-title">@Model.Title</h2>
+                <p class="challenge-page-description">@Model.Description</p>
+                <br />
+                <p>Examples:</p>
+                <div class="challenge-examples">
+                    @Model.Example
+                </div>
+            </div>
+
+            <div id="Output" class="tabcontent">
+                <h3>Output</h3>
+                <div class="console">
+                    <p id="output">
+                        <em>Attempt the challenge to get an output</em>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="challenge-split flex-child orange-border challenge-split-right">
+            <h3 id="solution-title">Solution</h3>
+            <label for="languages">Language:</label>
+            <select name="ChallengeLanguages" id="ChallengeLanguages" asp-items="ViewBag.ChallengeLanguages">
+            </select>
+
+            <textarea id="code-area" class="codemirror-textarea" placeholder="Enter code here">print("Hello World")</textarea>
+            <div class="solution-button-area">
+                <button class="solution-btns btn btn-primary buttons" id="solution-reset">Reset</button>
+                <button class="solution-btns btn btn-primary buttons" id="solution-attempt">Attempt</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="~/js/AttemptChallenge.js"></script>
+<script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="~/lib/codemirror/codemirror.js"></script>
+<script src="~/lib/codemirror/mode/python/python.js"></script>

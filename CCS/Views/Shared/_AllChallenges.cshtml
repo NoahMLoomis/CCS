@@ -1,0 +1,18 @@
+﻿@model CCS.Models.Challenge
+
+<div class="container row rounded mb-3 pt-3 @Model.DifficultyLevel text-left mx-auto">
+    <div class="col-2">
+        @Model.DifficultyLevel
+    </div>
+    <div class="col-5">@Model.Title</div>
+    <div class="col-3">
+        @foreach (var lang in Model.ChallengeLanguage) {
+            <div>
+                <img src="~/images/@(lang.Language.LanguageName.ToLower()).png" class="language-Image" data-toggle="tooltip" data-placement="right" title="@lang.Language.LanguageName.ToLower()" />
+            </div>
+        }
+    </div>
+    <div class="col-2">
+        <a title="Start challenge" class="btn btn-primary buttons" asp-controller="Challenge" asp-action="Index" asp-route-id="@Model.ChallengeId">Start</a>
+    </div>
+</div>

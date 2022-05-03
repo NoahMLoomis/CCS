@@ -1,0 +1,10 @@
+﻿@model int
+
+<li class="row ui-state-default border border-light bg-light pt-2 mb-2 ui-sortable-handle tc-row" id="testCase1">
+    <label class="col-form-label bold tc-num">Test Case <span id="testCaseId" class="text-dark">@Model</span></label>
+    <input type="text" placeholder="Expected" class="form-control col-2 tc-expected-field" name="TestCases[0].ExpectedResult">
+    <div class="tc-params-row">
+        <input type="text" placeholder="string" class="form-control col-2 tc-param" name="TestCases[0].ParameterValues[0]">
+    </div>
+    <button type="button" class="btn" onclick="removeTestCase()">x</button>
+</li>

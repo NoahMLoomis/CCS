@@ -1,0 +1,79 @@
+﻿@inject ICurrentSession currentSession
+@model IEnumerable<CCS.Models.Challenge>
+
+@{
+    ViewData["Title"] = "Home Page";
+    List<CodeSubmission> submissions = await new Challenge().GetAllAttemptedChallenges(currentSession.GetStudentId());
+}
+
+
+<div id="student-home-page">
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-all-challenges-tab" data-toggle="tab" href="#nav-all-challenges" role="tab" aria-controls="nav-all-challenges" aria-selected="false">All Challenges</a>
+            <a class="nav-item nav-link " id="nav-recent-challenges-tab" data-toggle="tab" href="#nav-recent-challenges" role="tab" aria-controls="nav-recent-challenges" aria-selected="true">Recent Challenges</a>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-all-challenges" role="tabpanel" aria-labelledby="nav-all-challenges-tab">
+            <h4 class="text-center">All Challenges</h4>
+            <div id="all-challenges">
+                <div class="container row mb-3 pt-3 text-left mx-auto" id="all-challenges-headings">
+                    <div class="col-2"><a asp-controller="Student" asp-action="ToggleOrder" asp-route-ascending="@Model.First().DifficultyLevelOrderedAsce">@Html.DisplayNameFor(model => model.FirstOrDefault().DifficultyLevel)</a></div>
+                    <div class="col-5">@Html.DisplayNameFor(model => model.FirstOrDefault().Title)</div>
+                    <div class="col-3">@Html.DisplayNameFor(model => model.FirstOrDefault().ChallengeLanguage)</div>
+                    <div class="col-2"></div>
+                </div>
+                @foreach (var challenge in Model) {
+                    <partial name="_AllChallenges" model="@challenge" />
+                }
+            </div>
+        </div>
+        <div class="tab-pane fade" id="nav-recent-challenges" role="tabpanel" aria-labelledby="nav-recent-challenges-tab">
+            <h4 class="text-center">Recent Challenges</h4>
+            <div id="start-challenge-form">
+                <div id="table-container">
+                    <table class="table table-bordered table-hover text-center" id="recentChallengesTable">
+                        <thead class="thead-dark">
+                            <tr class="tableHeader">
+                                <th scope="col">Difficulty</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Language</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var submission in submissions) {
+                                <tr class="@submission.ChallengeLanguage.Challenge.DifficultyLevel.ToLower()">
+                                    <td>@submission.ChallengeLanguage.Challenge.DifficultyLevel</td>
+                                    <td>@submission.ChallengeLanguage.Challenge.Title</td>
+                                    <td>@(submission.Status == false ? "Completed" : "Incomplete")</td>
+                                    <td><img src="~/images/@(submission.ChallengeLanguage.Language.LanguageName.ToLower()).png"         width="30" height="30" data-toggle="tooltip" data-placement="right" title="@submission.ChallengeLanguage.Language.LanguageName.ToLower()" /></td>
+                                    <td><a href="@Url.Action("Index", "Challenge", new { id = submission.ChallengeLanguage.ChallengeId })">@(submission.Status == false ? "Try Again" : "Continue")</a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.5/datatables.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#recentChallengesTable').DataTable({
+                scroller: true,
+                scrollY: 200
+            });
+
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                $($.fn.dataTable.tables(true)).DataTable()
+                    .columns.adjust();
+            });
+        });
+    </script>
+}

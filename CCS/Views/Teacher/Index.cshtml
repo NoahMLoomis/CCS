@@ -1,0 +1,94 @@
+﻿@model CCS.Models.Teacher
+@inject ICurrentSession currentSession;
+
+
+@{
+    ViewData["Title"] = "Home Page";
+    var deleteMsg = TempData["DeleteMsg"];
+    var updateMsg = TempData["UpdateMsg"];
+}
+
+<br />
+<div class="teachercontainer row">
+    <h4 class="col">Welcome, @currentSession.GetFullName()</h4>
+    <h4><a asp-controller="Challenge" asp-action="Create" class="col">Create a Challenge >>> </a> </h4>
+</div>
+<br />
+<div id="deleteMsgContainer">
+    @if (deleteMsg != null) {
+        @if (!deleteMsg.ToString().Contains("unsuccessful") && !deleteMsg.ToString().Contains("error")) {
+            <h4 class="alert alert-success text-xl-center">@deleteMsg.ToString()</h4>
+        } else {
+            <h4 class="alert alert-danger text-xl-center">@deleteMsg.ToString()</h4>
+        }
+    }
+</div>
+
+<div id="updateMsgContainer">
+    @if (updateMsg != null) {
+        <h4 class="alert alert-success text-xl-center">@updateMsg.ToString()</h4>
+    }
+</div>
+<br />
+@if (Model.Challenge.Count != 0) {
+    <div class="teachercontainer row rounded">
+        <div class="col">
+            <form asp-controller="Teacher" asp-action="FilterChallengeTitle" asp-route-id="@Model.TeacherId" method="post">
+                <div class="form-group">
+                    <label for="searchChallengeTitle" id="challengeTitleLbl">Challenge Title:</label>
+                    <input id="searchChallengeTitle" name="searchChallengeTitle" value="@ViewBag.ChallengeTitle" />
+                    <button class="btn-sm btn-success" id="btnSearchChallengeTitle" name="btnSearchChallengeTitle">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="teachercontainer pt-3 text-left row rounded " id="teacher-heading">
+        <div class="col-2">
+            <a href="@Url.Action("ToggleTeacherChallengeOrder", "Challenge",new { teacherId=Model.TeacherId,ascending = Model.Challenge.First().DifficultyLevelOrderedAsce })">@Html.DisplayNameFor(model => model.Challenge.FirstOrDefault().DifficultyLevel)</a>
+        </div>
+        <div class="col-5">@Html.DisplayNameFor(model => model.Challenge.FirstOrDefault().Title)</div>
+        <div class="col-3">@Html.DisplayNameFor(model => model.Challenge.FirstOrDefault().ChallengeLanguage)</div>
+        <div class="col-2">@Html.DisplayNameFor(model => model.Challenge.FirstOrDefault().Active)</div>
+    </div>
+    foreach (var challenge in Model.Challenge) {
+        <div class="teachercontainer text-left row rounded mb-3 pt-3 @challenge.DifficultyLevel">
+            <div class="col-2">@challenge.DifficultyLevel</div>
+            <div class="col-5"><a asp-controller="Challenge" asp-action="Edit" asp-route-id="@challenge.ChallengeId">@challenge.Title</a></div>
+            @if (challenge.ChallengeLanguage.Count != 0) {
+                <div class="col-3">
+                    @foreach (var lang in challenge.ChallengeLanguage) {
+                        <img src="~/images/@(lang.Language.LanguageName.ToLower()).png" width="35" height="35" data-toggle="tooltip" data-placement="right" title="@lang.Language.LanguageName.ToLower()" />
+                    }
+                    @*Javascript icon link: https://pixabay.com/vectors/javascript-js-logo-source-code-736400/*@
+                    @*Python icon link: https://icons8.com/icon/13441/python*@
+                    @*Php icon link: https://iconarchive.com/show/papirus-apps-icons-by-papirus-team/github-bartzaalberg-php-tester-icon.html*@
+                </div>
+            } else {
+                <div class="col-3">&nbsp;</div>
+            }
+            <div class="custom-control custom-switch custom-switch-md">
+                <input type="checkbox" class="custom-control-input" name="@challenge.ChallengeId" id="@challenge.ChallengeId" @(challenge.Active ? "checked" : "") onclick="changeactive('@challenge.ChallengeId')" />
+                <label class="custom-control-label" for="@challenge.ChallengeId">&nbsp;</label>
+            </div>
+        </div>
+    }
+} else {
+    <div>So far, there are no challenges. Please create some challenges.</div>
+}
+
+
+
+@section Scripts {
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        let  changeactive = (id) => {
+            console.log(id);
+            $.ajax({
+                url: '@Url.Action("ChangeActive", "Challenge")',
+                type: 'POST',
+                data: { id: id, },
+                traditional: true
+             });
+        };
+    </script>
+}
